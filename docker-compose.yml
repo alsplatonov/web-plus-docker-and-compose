@@ -1,0 +1,52 @@
+version: '3.9'
+
+services:
+  backend:
+    networks:
+      - backend
+    container_name: 'post-backend'
+    build:
+      context: backend
+      dockerfile: Dockerfile
+    image: opti-backend #имя образа
+    ports:
+      - 4000:3000
+    env_file:
+      - .env
+
+  frontend:
+    networks:
+      - frontend
+    container_name: 'post-frontend'
+    build:
+      context: frontend
+      dockerfile: Dockerfile
+    image: opti-frontend #имя образа  
+    ports:
+      - 8080:80
+
+  postgres:
+    networks:
+      - backend
+    container_name: postgres
+    image: postgres
+    volumes:
+      - postgres_data:/data/postgres
+    env_file:
+      - .env
+
+  adminer:
+    networks:
+      - backend
+    container_name: adminer
+    image: adminer
+    ports:
+      - 8081:8080
+
+volumes:
+  postgres_data:
+
+
+networks:
+  frontend:
+  backend:
