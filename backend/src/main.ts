@@ -2,14 +2,12 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import cors from 'cors';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const PORT = process.env.PORT || 3000;
   app.useGlobalPipes(new ValidationPipe({ transform: true }));
-  // app.enableCors();
-  app.use(cors());
+  app.enableCors();
 
   const config = new DocumentBuilder()
     .setTitle('KUPIPODARIDAY BACKEND')
