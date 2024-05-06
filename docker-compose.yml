@@ -13,6 +13,7 @@ services:
       - 4000:3000
     env_file:
       - .env
+    restart: unless-stopped    
 
   frontend:
     networks:
@@ -24,6 +25,7 @@ services:
     image: opti-frontend #имя образа  
     ports:
       - 8080:80
+    restart: unless-stopped    
 
   postgres:
     networks:
@@ -36,6 +38,7 @@ services:
       - postgres_data:/data/postgres
     env_file:
       - .env
+    restart: unless-stopped    
 
   adminer:
     networks:
